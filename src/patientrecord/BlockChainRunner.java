@@ -36,7 +36,11 @@ public class BlockChainRunner {
                     PatientInfo patientInfo = CreateRecord();// creates patient record + first dose :)
                     Wallet patientWallet = new Wallet(patientInfo.getPersonalInfo(), participants.PATIENT, blockChain);
                     System.out.println("Patient is created with the Wallet Id: " + patientWallet.getPublicKey());
-                    Transaction patientMedicalRecord = setTransaction(employeeWallet,"Creating record for patient: "+patientWallet.getPersonalInfo().getFirstName()+patientWallet.getPersonalInfo().getLastName());
+                    String transSignature = "Creating record for patient: "
+                    +patientWallet.getPersonalInfo().getFirstName()+patientWallet.getPersonalInfo().getLastName()+" \n"
+                    + "Done by employee: "+employeeWallet.getPersonalInfo().getFirstName() 
+                    + employeeWallet.getPersonalInfo().getFirstName();
+                    Transaction patientMedicalRecord = setTransaction(employeeWallet,transSignature);
                    // List<Transaction> updateList = new ArrayList<>();
                    // updateList.add(patientMedicalRecord);
                     Block block = new Block(blockChain.getLastHash(), patientWallet.getPublicKey(), patientInfo, patientMedicalRecord);
